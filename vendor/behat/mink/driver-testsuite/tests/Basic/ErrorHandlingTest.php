@@ -4,9 +4,6 @@ namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
 
-/**
- * @group slow
- */
 class ErrorHandlingTest extends TestCase
 {
     const NOT_FOUND_XPATH = '//html/./invalid';

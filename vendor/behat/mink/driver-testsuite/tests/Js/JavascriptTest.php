@@ -27,7 +27,7 @@ class JavascriptTest extends TestCase
         $droppable = $webAssert->elementExists('css', '#droppable');
 
         $draggable->dragTo($droppable);
-        $this->assertEquals('Dropped!', $this->getAssertSession()->elementExists('css', 'p', $droppable)->getText());
+        $this->assertEquals('Dropped!', $droppable->find('css', 'p')->getText());
     }
 
     // test accentuated char in button

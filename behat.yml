@@ -1,16 +1,14 @@
 default:
-    context:
-        class: FeatureContext
-    paths:
-        features: /data/behat/Features
-        bootstrap: /data/behat/Features/Bootstrap
-    extensions:
-        Behat\Symfony2Extension\Extension:
-            mink_driver: true
-            kernel:
-                env: test
-                debug: true
-        Behat\MinkExtension\Extension:
+   autoload:
+      '': %paths.base%/Bootstrap
+   suites:
+     default:
+       paths:
+           -  %paths.base%/Features
+       contexts:
+           - FeatureContext
+   extensions:
+        Behat\MinkExtension:
             base_url: http://adsmurai.dev/
             goutte: ~
             browser_name: chrome

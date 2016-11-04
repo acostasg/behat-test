@@ -7,7 +7,7 @@ use Behat\Mink\Mink;
 use Behat\Mink\Session;
 use Behat\Mink\WebAssert;
 
-abstract class TestCase extends SkippingUnsupportedTestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * Mink session manager.
@@ -22,7 +22,7 @@ abstract class TestCase extends SkippingUnsupportedTestCase
     private static $config;
 
     /**
-     * Initializes the test case.
+     * Initializes the test case
      */
     public static function setUpBeforeClass()
     {
@@ -66,6 +66,15 @@ abstract class TestCase extends SkippingUnsupportedTestCase
         }
     }
 
+    protected function onNotSuccessfulTest(\Exception $e)
+    {
+        if ($e instanceof UnsupportedDriverActionException) {
+            $this->markTestSkipped($e->getMessage());
+        }
+
+        parent::onNotSuccessfulTest($e);
+    }
+
     /**
      * Returns session.
      *
@@ -93,20 +102,9 @@ abstract class TestCase extends SkippingUnsupportedTestCase
      */
     protected function findById($id)
     {
-        return $this->getAssertSession()->elementExists('named', array('id', $id));
-    }
+        $id = $this->getSession()->getSelectorsHandler()->xpathLiteral($id);
 
-    /**
-     * Creates a new driver instance.
-     *
-     * This driver is not associated to a session. It is meant to be used for tests on the driver
-     * implementation itself rather than test using the Mink API.
-     *
-     * @return \Behat\Mink\Driver\DriverInterface
-     */
-    protected function createDriver()
-    {
-        return self::getConfig()->createDriver();
+        return $this->getAssertSession()->elementExists('named', array('id', $id));
     }
 
     /**
@@ -138,7 +136,7 @@ abstract class TestCase extends SkippingUnsupportedTestCase
     }
 
     /**
-     * Waits for a condition to be true, considering than it is successful for drivers not supporting wait().
+     * Waits for a condition to be true, considering than it is successful for drivers not supporting wait()
      *
      * @param int    $time
      * @param string $condition A JS condition to evaluate

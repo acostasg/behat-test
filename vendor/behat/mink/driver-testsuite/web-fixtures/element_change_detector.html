@@ -41,7 +41,7 @@
             var $change_registry = {},
                 $results = $('#results');
 
-            $(':input').change(function () {
+            $(':input').change(function ($e) {
                 var $result_id = this.id + '-result';
 
                 if (!$change_registry[this.id]) {

@@ -17,14 +17,6 @@ class JavascriptEvaluationTest extends TestCase
         $this->assertTrue($found);
     }
 
-    public function testWaitReturnValueAlwaysBoolean()
-    {
-        $this->getSession()->visit($this->pathTo('/js_test.html'));
-
-        $found = $this->getSession()->wait(5000, '$("#draggable").length');
-        $this->assertTrue($found);
-    }
-
     public function testWait()
     {
         $this->getSession()->visit($this->pathTo('/js_test.html'));
@@ -33,11 +25,11 @@ class JavascriptEvaluationTest extends TestCase
 
         $waitable->click();
         $this->getSession()->wait(3000, '$("#waitable").has("div").length > 0');
-        $this->assertEquals('arrived', $this->getAssertSession()->elementExists('css', '#waitable > div')->getText());
+        $this->assertEquals('arrived', $this->getSession()->getPage()->find('css', '#waitable > div')->getText());
 
         $waitable->click();
         $this->getSession()->wait(3000, 'false');
-        $this->assertEquals('timeout', $this->getAssertSession()->elementExists('css', '#waitable > div')->getText());
+        $this->assertEquals('timeout', $this->getSession()->getPage()->find('css', '#waitable > div')->getText());
     }
 
     /**

@@ -7,8 +7,7 @@ use Behat\Mink\Tests\Driver\TestCase;
 class CookieTest extends TestCase
 {
     /**
-     * test cookie decoding.
-     *
+     * test cookie decoding
      * @group issue140
      */
     public function testIssue140()
@@ -45,15 +44,6 @@ class CookieTest extends TestCase
         $this->getSession()->setCookie('srvr_cookie', null);
         $this->getSession()->reload();
         $this->assertContains('Previous cookie: NO', $this->getSession()->getPage()->getText());
-    }
-
-    public function testCookieWithSemicolon()
-    {
-        $this->getSession()->visit($this->pathTo('/cookie_page2.php'));
-        $this->getSession()->setCookie('srvr_cookie', 'foo;bar;baz');
-        $this->getSession()->visit($this->pathTo('/cookie_page2.php'));
-        $this->assertEquals('foo;bar;baz', $this->getSession()->getCookie('srvr_cookie'));
-        $this->assertContains('Previous cookie: foo;bar;baz', $this->getSession()->getPage()->getText());
     }
 
     /**

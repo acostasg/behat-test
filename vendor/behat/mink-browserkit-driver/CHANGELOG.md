@@ -1,37 +1,3 @@
-1.3.2 / 2016-03-05
-==================
-
-Testsuite:
-
-* Disallowed failures on PHP 7 on Travis (tests were passing since a long time)
-* Added HTML escaping of submitted values in the driver testsuite web-fixtures
-
-1.3.1 / 2016-01-19
-==================
-
-* Added Symfony 3.0 compatibility
-
-1.3.0 / 2015-09-21
-==================
-
-BC break:
-
-* Dropped support for Symfony 2.2 and older
-* Bumped required PHP version to 5.3.6
-
-New features:
-
-* Updated the driver to use findElementsXpaths for Mink 1.7 and forward compatibility with Mink 2
-
-Bug fixes:
-
-* Improved the exception message when clicking on an invalid element
-* Use `saveHTML` to get correct HTML code back
-
-Misc:
-
-* Updated the repository structure to PSR-4
-
 1.2.0 / 2014-09-26
 ==================
 

@@ -5,9 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 </head>
 <body>
-    <?php
-        require_once 'utils.php';
-        echo str_replace('>', '', var_export(html_escape_value($_COOKIE), true));
-    ?>
+    <?php echo str_replace('>', '', var_export($_COOKIE, true)); ?>
 </body>
 </html>

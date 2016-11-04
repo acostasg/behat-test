@@ -10,7 +10,7 @@ class WindowTest extends TestCase
     {
         $this->getSession()->visit($this->pathTo('/window.html'));
         $session = $this->getSession();
-        $page = $session->getPage();
+        $page    = $session->getPage();
         $webAssert = $this->getAssertSession();
 
         $page->clickLink('Popup #1');
@@ -39,7 +39,7 @@ class WindowTest extends TestCase
     {
         $this->getSession()->visit($this->pathTo('/window.html'));
         $session = $this->getSession();
-        $page = $session->getPage();
+        $page    = $session->getPage();
 
         $windowName = $this->getSession()->getWindowName();
 
@@ -62,24 +62,10 @@ class WindowTest extends TestCase
 
         $session->resizeWindow(400, 300);
         $session->wait(1000, 'false');
-        $jsWindowSizeScript = <<<JS
-        (function(){
-          var boolSizeCheck = Math.abs(window.outerHeight - 300) <= 100 && Math.abs(window.outerWidth - 400) <= 100;
-          if (boolSizeCheck){
-            return true;
-          }
-          var w = window,
-              d = document,
-              e = d.documentElement,
-              g = d.getElementsByTagName('body')[0],
-              x = w.innerWidth || e.clientWidth || g.clientWidth,
-              y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-          boolSizeCheck = Math.abs(y - 300) <= 100 && Math.abs(x - 400) <= 100;
-          return boolSizeCheck;
-        })();
-JS;
 
-        $this->assertTrue($session->evaluateScript($jsWindowSizeScript));
+        $script = "return Math.abs(window.outerHeight - 300) <= 100 && Math.abs(window.outerWidth - 400) <= 100;";
+
+        $this->assertTrue($session->evaluateScript($script));
     }
 
     public function testWindowMaximize()
@@ -90,7 +76,7 @@ JS;
         $session->maximizeWindow();
         $session->wait(1000, 'false');
 
-        $script = 'return Math.abs(screen.availHeight - window.outerHeight) <= 100;';
+        $script = "return Math.abs(screen.availHeight - window.outerHeight) <= 100;";
 
         $this->assertTrue($session->evaluateScript($script));
     }
