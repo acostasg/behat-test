@@ -1,9 +1,10 @@
 <?php
 
+use Behat\MinkExtension\Context\MinkContext;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends \BaseContext
+class BaseContext extends MinkContext
 {
     /**
      * Initializes context.
@@ -14,5 +15,13 @@ class FeatureContext extends \BaseContext
      */
     public function __construct()
     {
+    }
+
+    /**
+     * @Then /^I wait for the ajax response$/
+     */
+    public function iWaitForTheAjaxResponse()
+    {
+        $this->getSession()->wait(5000, '(0 === jQuery.active)');
     }
 }
