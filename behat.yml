@@ -10,7 +10,7 @@ default:
    extensions:
         Behat\MinkExtension:
             base_url: http://adsmurai.dev/
-            goutte: ~
+            #goutte: ~
             browser_name: chrome
             javascript_session: selenium2
             selenium2:
